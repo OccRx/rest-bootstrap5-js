@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить пользователя</title>
+
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div class="m-3 bg-light"><h2>Обновить пользователя</h2></div>
+    <div class="m-3">
+        <form action="#" th:method="POST" th:action="@{/admin/update}"  th:object="${user}">
+            <input type="hidden" th:field="*{id}" />
+            <input th:type="text" th:field="*{name}" placeholder="Имя"  >
+            <input type="text" th:field="*{lastName}" placeholder="Фамилия">
+            <input type="text" th:field="*{age}" placeholder="Возраст"  >
+
+            <div class="m-3">
+                <button type="submit" class="btn btn-outline-dark">Обновить</button>
+            </div>
+        </form >
+        <a  th:href="@{/admin/}">Вернуться к списку пользователй</a>
+        <a  th:href="@{/logout}">Выйти из системы</a>
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователй</title>
+</head>
+<!-- --------------------------- -->
+<body>
+<div class="container-fluid text-center">
+    <div class="m-3 bg-light">
+     <h2>Пользователи</h2>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="m-3 bg-light" >
+        <a class="btn btn-outline-dark" th:href="@{/admin/newUserForm}">Добавить пользователя</a>
+    </div>
+
+    <div>
+
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Редактировать</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user :${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.age}"></td>
+            <td>
+                <a class="btn btn-outline-dark" th:href="@{/admin/updateUserForm(id=${user.id})}">Обновить</a>
+                <a class="btn btn-outline-dark"
+                   th:href="@{/admin/delete(id=${user.id})}" th:onclick="return confirm('Вы уверены ?')">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <a  th:href="@{/logout}">Выйти из системы</a>
+</div>
+</div>
+</body>
+</html>
