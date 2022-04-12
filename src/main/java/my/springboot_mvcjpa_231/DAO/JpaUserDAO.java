@@ -4,9 +4,10 @@ import my.springboot_mvcjpa_231.model.User;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Repository(value = "userDAO")
 public class JpaUserDAO implements UserDAO{
 
     @PersistenceContext
@@ -18,7 +19,7 @@ public class JpaUserDAO implements UserDAO{
     }
 
     @Override
-    public User getUserById(long id) {
+    public User findUserById(long id) {
         return entityManager.find(User.class,id);
     }
 
@@ -34,7 +35,14 @@ public class JpaUserDAO implements UserDAO{
 
     @Override
     public void delete(long id) {
-        entityManager.remove(getUserById(id));
+        entityManager.remove(findUserById(id));
+    }
+
+    @Override
+    public User findUserByName(String name) {
+        TypedQuery<User> tq = entityManager.createQuery("SELECT u FROM User u WHERE u.name = :name",User.class);
+        tq.setParameter("name", name);
+        return tq.getSingleResult();
     }
 
 }

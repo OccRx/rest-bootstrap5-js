@@ -12,16 +12,19 @@
     <div class="m-3">
         <form action="#" th:method="POST" th:action="@{/admin/update}"  th:object="${user}">
             <input type="hidden" th:field="*{id}" />
-            <input th:type="text" th:field="*{name}" placeholder="Имя"  >
-            <input type="text" th:field="*{lastName}" placeholder="Фамилия">
-            <input type="text" th:field="*{age}" placeholder="Возраст"  >
+            <input type="text" th:field="*{name}" placeholder="Имя"  />
+            <input type="text" th:field="*{lastName}" placeholder="Фамилия"/>
+            <input type="text" th:field="*{age}" placeholder="Возраст" />
+            <input type="hidden" th:field="*{password}" placeholder="Возраст" />
 
             <div class="m-3">
                 <button type="submit" class="btn btn-outline-dark">Обновить</button>
             </div>
         </form >
-        <a  th:href="@{/admin/}">Вернуться к списку пользователй</a>
-        <a  th:href="@{/logout}">Выйти из системы</a>
+        <div>
+        <a  th:href="@{/admin/}">Вернуться к списку пользователй</a></div>
+        <div>
+        <a  th:href="@{/logout}">Выйти из системы</a></div>
 
     </div>
 </div>
