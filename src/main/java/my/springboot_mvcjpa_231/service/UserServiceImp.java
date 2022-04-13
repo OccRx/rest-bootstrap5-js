@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service(value = "userService")
+@Service
 @Transactional
 public class UserServiceImp implements UserService, UserDetailsService {
 

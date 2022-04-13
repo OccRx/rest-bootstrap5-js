@@ -4,6 +4,7 @@ import my.springboot_mvcjpa_231.model.User;
 import my.springboot_mvcjpa_231.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +21,17 @@ public class UserController {
         this.userService = usersService;
     }
 
-//    @GetMapping("")
-//    public String printUser(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-//        model.addAttribute("user", usersService.findUserByName(userDetails.getUsername()));
-//        return "user";
-//    }
-
     @GetMapping("")
-    public String printUser(
-            @AuthenticationPrincipal(expression = "@userService.findUserByName(username)") User user, Model model) {
-
-        model.addAttribute("user", user);
+    public String printUser(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("user", userService.findUserByName(userDetails.getUsername()));
         return "user";
     }
+
+//    @GetMapping("")
+//    public String printUser(
+//            @AuthenticationPrincipal(expression = "@userServiceImp.findUserByName(username)") User user, Model model) {
+//
+//        model.addAttribute("user", user);
+//        return "user";
+//    }
 }
