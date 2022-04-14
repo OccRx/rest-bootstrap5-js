@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Обновить пользователя</title>
-
 </head>
 <body>
 <div class="container-fluid text-center">
@@ -16,7 +15,11 @@
             <input type="text" th:field="*{lastName}" placeholder="Фамилия"/>
             <input type="text" th:field="*{age}" placeholder="Возраст" />
             <input type="hidden" th:field="*{password}" placeholder="Возраст" />
-
+            <select th:field="*{roles}"  multiple size = "2">
+                <option th:each="role : ${roleList}"
+                        th:value ="${role.id}"
+                        th:text="${role.getRoleName()}"></option>
+            </select>
             <div class="m-3">
                 <button type="submit" class="btn btn-outline-dark">Обновить</button>
             </div>
@@ -25,10 +28,7 @@
         <a  th:href="@{/admin/}">Вернуться к списку пользователй</a></div>
         <div>
         <a  th:href="@{/logout}">Выйти из системы</a></div>
-
     </div>
 </div>
-
-
 </body>
 </html>

@@ -1,7 +1,6 @@
 package my.springboot_mvcjpa_231.model;
 
 import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,22 +8,28 @@ import java.util.List;
 @Table(name = "role")
 public class Role implements GrantedAuthority {
 
-//    private static final long serialVersionUID = 99L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String roleName;
 
-/*    @ManyToMany(mappedBy = "roles")
-    private List<User> users;*/
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    private List<User> userList;
 
     public Role() {
     }
 
-
     public Role(String roleName) {
         this.roleName = roleName;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     public Long getId() {

@@ -3,9 +3,7 @@ package my.springboot_mvcjpa_231.model;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,16 +30,16 @@ public class User implements UserDetails {
     private int age;
 
 
-    @ManyToMany(/*cascade = CascadeType.MERGE,*/ fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> roles;
 
     public User() {
     }
 
-    public User(String name, int age, String lastName, String password, List<Role> roles) {
+    public User(String name, int age, String lastName,String password, List<Role> roles) {
         this.name = name;
         this.age = age;
         this.lastName = lastName;

@@ -1,6 +1,5 @@
 package my.springboot_mvcjpa_231.controller;
 
-import my.springboot_mvcjpa_231.model.User;
 import my.springboot_mvcjpa_231.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,11 +26,4 @@ public class UserController {
         return "user";
     }
 
-//    @GetMapping("")
-//    public String printUser(
-//            @AuthenticationPrincipal(expression = "@userServiceImp.findUserByName(username)") User user, Model model) {
-//
-//        model.addAttribute("user", user);
-//        return "user";
-//    }
 }

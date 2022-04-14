@@ -16,11 +16,9 @@
             <input type="number" th:field="*{age}" placeholder="Возраст"  >
             <input type="text" th:field="*{password}" placeholder="Пароль">
             <select th:field="*{roles}"  multiple size = "2">
-<!--                <div th:each="role : ${roleList}">-->
                 <option th:each="role : ${roleList}"
                         th:value ="${role.id}"
                         th:text="${role.getRoleName()}"></option>
-<!--                </div>-->
             </select>
             <div class="m-3">
                 <button type="submit" class="btn btn-outline-dark"> Сохранить</button>
