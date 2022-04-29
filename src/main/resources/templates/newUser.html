@@ -7,31 +7,31 @@
 
 </head>
 <body>
-    <div class="container-fluid text-center">
-        <div class="m-3 bg-light"><h2>Добавить пользователя</h2></div>
-        <div class="m-3">
-        <form th:method="POST" th:action="@{/admin/saveUser}"  th:object="${user}" >
-            <input th:type="text" th:field="*{name}" placeholder="Имя"  >
-            <input type="text" th:field="*{lastName}" placeholder="Фамилия">
-            <input type="text" th:field="*{email}" placeholder="mail">
-            <input type="number" th:field="*{age}" placeholder="Возраст"  >
-            <input type="text" th:field="*{password}" placeholder="Пароль">
-            <select th:field="*{roles}"  multiple size = "2">
+<div class="container-fluid text-center">
+    <div class="m-3 bg-light"><h2>Добавить пользователя</h2></div>
+    <div class="m-3">
+        <form th:action="@{/admin/saveUser}" th:method="POST" th:object="${user}">
+            <input placeholder="Имя" th:field="*{name}" th:type="text">
+            <input placeholder="Фамилия" th:field="*{lastName}" type="text">
+            <input placeholder="mail" th:field="*{email}" type="text">
+            <input placeholder="Возраст" th:field="*{age}" type="number">
+            <input placeholder="Пароль" th:field="*{password}" type="text">
+            <select multiple size="2" th:field="*{roles}">
                 <option th:each="role : ${roleList}"
-                        th:value ="${role.id}"
-                        th:text="${role.getRoleName()}"></option>
+                        th:text="${role.getRoleName()}"
+                        th:value="${role.id}"></option>
             </select>
             <div class="m-3">
-                <button type="submit" class="btn btn-outline-dark"> Сохранить</button>
+                <button class="btn btn-outline-dark" type="submit"> Сохранить</button>
             </div>
-        </form >
+        </form>
 
-            <div><a  th:href="@{/admin}">Вернуться к списку пользователй</a></div>
-            <div>
-            <a  th:href="@{/logout}">Выйти из системы</a>
-            </div>
+        <div><a th:href="@{/admin}">Вернуться к списку пользователй</a></div>
+        <div>
+            <a th:href="@{/logout}">Выйти из системы</a>
         </div>
     </div>
+</div>
 
 
 </body>

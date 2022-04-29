@@ -37,7 +37,10 @@ public class AdminController {
     @GetMapping("/admin")
     public String starterPage(@AuthenticationPrincipal UserDetails userDetails, Model model){
         User user = userService.findUserByEmail(userDetails.getUsername());
+        User newUser = new User();
+        model.addAttribute("newUser", newUser);
         model.addAttribute("userList", userService.findAll());
+        model.addAttribute("roleList", roleRepository.findAll());
         model.addAttribute("user", user/*userService.findUserByEmail(userDetails.getUsername())*/);
 //        model.addAttribute("userRole", user.getRoles());
         return "adminPanel";
