@@ -1,6 +1,6 @@
-package my.springboot_mvcjpa_231.service;
+package org.my.bootstrap5.service;
 
-import my.springboot_mvcjpa_231.model.User;
+import org.my.bootstrap5.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
     void deleteUserById(long id);
 
     User findUserByName(String name);
+
+    User findUserByEmail(String email);
 }

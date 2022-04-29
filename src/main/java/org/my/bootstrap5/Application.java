@@ -1,4 +1,4 @@
-package my.springboot_mvcjpa_231;
+package org.my.bootstrap5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

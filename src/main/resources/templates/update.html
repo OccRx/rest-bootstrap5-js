@@ -14,7 +14,8 @@
             <input type="text" th:field="*{name}" placeholder="Имя"  />
             <input type="text" th:field="*{lastName}" placeholder="Фамилия"/>
             <input type="text" th:field="*{age}" placeholder="Возраст" />
-            <input type="hidden" th:field="*{password}" placeholder="Возраст" />
+            <input type="text" th:field="*{email}" placeholder="Email" />
+            <input type="password" th:field="*{password}" placeholder="Введите пароль" />
             <select th:field="*{roles}"  multiple size = "2">
                 <option th:each="role : ${roleList}"
                         th:value ="${role.id}"

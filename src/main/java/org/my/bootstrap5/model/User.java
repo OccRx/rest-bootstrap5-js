@@ -1,5 +1,7 @@
-package my.springboot_mvcjpa_231.model;
+package org.my.bootstrap5.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +9,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
@@ -16,8 +20,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "email", unique = true)
     @NonNull
+    private String email;
+
+    @Column(name = "name")
     private String name;
 
     @Column(name = "last_name")
@@ -39,56 +46,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, int age, String lastName,String password, List<Role> roles) {
+    public User(String email,String name, int age, String lastName,String password, List<Role> roles) {
         this.name = name;
         this.age = age;
         this.lastName = lastName;
         this.password = password;
         this.roles = roles;
-    }
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.email = email;
     }
 
     @Override
@@ -101,13 +65,9 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String getUsername() {
-        return name;
+        return email;
     }
 
     @Override

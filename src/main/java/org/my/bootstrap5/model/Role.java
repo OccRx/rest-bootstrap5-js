@@ -1,9 +1,15 @@
-package my.springboot_mvcjpa_231.model;
+package org.my.bootstrap5.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "role")
 public class Role implements GrantedAuthority {
@@ -15,7 +21,7 @@ public class Role implements GrantedAuthority {
     private String roleName;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
 
     public Role() {
     }
@@ -24,20 +30,16 @@ public class Role implements GrantedAuthority {
         this.roleName = roleName;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    @Override
+    public String getAuthority() {
+        return roleName;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleName='" + roleName + '\'' +
+                '}';
     }
 
     public String getRoleName() {
@@ -47,11 +49,4 @@ public class Role implements GrantedAuthority {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-
-    @Override
-    public String getAuthority() {
-        return roleName;
-    }
-
-
 }

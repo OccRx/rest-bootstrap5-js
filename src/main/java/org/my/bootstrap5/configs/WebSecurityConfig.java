@@ -1,6 +1,6 @@
-package my.springboot_mvcjpa_231.configs;
+package org.my.bootstrap5.configs;
 
-import my.springboot_mvcjpa_231.service.UserService;
+import org.my.bootstrap5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,19 +28,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/admin/**").hasRole("ADMIN")
+                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
+                .formLogin()
+                .loginPage("/login")
+                .successHandler(successUserHandler)
                 .permitAll()
-                .and()
-                .httpBasic()
+//                .and()
+//                .httpBasic()
                 .and()
                 .logout()
                 .permitAll();
     }
+
 
     @Bean
     protected DaoAuthenticationProvider daoAuthenticationProvider() {

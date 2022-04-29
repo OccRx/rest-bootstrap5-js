@@ -1,4 +1,4 @@
-package my.springboot_mvcjpa_231;
+package org.my.bootstrap5;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

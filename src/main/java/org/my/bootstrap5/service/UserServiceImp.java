@@ -1,7 +1,7 @@
-package my.springboot_mvcjpa_231.service;
+package org.my.bootstrap5.service;
 
-import my.springboot_mvcjpa_231.Repositories.UserRepository;
-import my.springboot_mvcjpa_231.model.User;
+import org.my.bootstrap5.repositories.UserRepository;
+import org.my.bootstrap5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,8 +38,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-       return userRepository.findUserByName(username);
+    public UserDetails loadUserByUsername(String email) {
+       return userRepository.findUserByEmail(email);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
     @Override
