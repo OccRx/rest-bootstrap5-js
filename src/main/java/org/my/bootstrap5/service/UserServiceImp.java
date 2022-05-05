@@ -33,7 +33,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void save(User user) {
-        user.setPassword(bcrypt.encode(user.getPassword()));
+//        user.setPassword(bcrypt.encode(user.getPassword()));
         userRepository.save(user);
     }
 

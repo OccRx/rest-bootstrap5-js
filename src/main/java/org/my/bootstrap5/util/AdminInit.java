@@ -30,10 +30,16 @@ public class AdminInit {
             roleService.save(role);
             roleService.save(role1);
             List<Role> roles = new ArrayList<>();
+            List<Role> roleUser = new ArrayList<>();
+            roleUser.add(role1);
             roles.add(role);
             roles.add(role1);
             User admin = new User("admin@gmail.com", "admin", 54, "admin", "123", roles);
+            User user = new User("user@gmail.com", "admin", 54, "admin", "123", roleUser);
+            User user2 = new User("user1@gmail.com", "admin", 54, "admin", "123", roleUser);
             userService.save(admin);
+            userService.save(user);
+            userService.save(user2);
         } catch (RuntimeException ignored){}
     }
 }
