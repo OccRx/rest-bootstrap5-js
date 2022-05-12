@@ -1,5 +1,6 @@
 package org.my.bootstrap5.service;
 
+import org.my.bootstrap5.model.Role;
 import org.my.bootstrap5.repositories.UserRepository;
 import org.my.bootstrap5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -33,7 +37,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void save(User user) {
-//        user.setPassword(bcrypt.encode(user.getPassword()));
+        user.setPassword(bcrypt.encode(user.getPassword()));
         userRepository.save(user);
     }
 

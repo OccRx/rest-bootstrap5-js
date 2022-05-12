@@ -46,13 +46,21 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String email,String name, int age, String lastName,String password, List<Role> roles) {
+    public User(String email, String name, int age, String lastName, String password, List<Role> roles) {
         this.name = name;
         this.age = age;
         this.lastName = lastName;
         this.password = password;
         this.roles = roles;
         this.email = email;
+    }
+
+    public User(@NonNull String email, String name, int age ,String lastName, String password) {
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.password = password;
+        this.age = age;
     }
 
     @Override

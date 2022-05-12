@@ -10,11 +10,13 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
 public class AdminInit {
 
     private UserService userService;
     private RoleService roleService;
+
 
     @Autowired
     public AdminInit(UserService userService,  RoleService roleService) {
@@ -24,22 +26,22 @@ public class AdminInit {
 
     @PostConstruct
     public void init() {
-        try {
-            Role role = new Role("ROLE_ADMIN");
-            Role role1 = new Role("ROLE_USER");
-            roleService.save(role);
-            roleService.save(role1);
+        if (roleService.findByRoleName("ROLE_ADMIN") == null) {
+            Role roleAdmin = new Role("ROLE_ADMIN");
+            Role roleUser = new Role("ROLE_USER");
+            roleService.save(roleAdmin);
+            roleService.save(roleUser);
             List<Role> roles = new ArrayList<>();
-            List<Role> roleUser = new ArrayList<>();
-            roleUser.add(role1);
-            roles.add(role);
-            roles.add(role1);
+            List<Role> rolesUser = new ArrayList<>();
+            rolesUser.add(roleUser);
+            roles.add(roleAdmin);
+            roles.add(roleUser);
             User admin = new User("admin@gmail.com", "admin", 54, "admin", "123", roles);
-            User user = new User("user@gmail.com", "admin", 54, "admin", "123", roleUser);
-            User user2 = new User("user1@gmail.com", "admin", 54, "admin", "123", roleUser);
+            User user = new User("user@gmail.com", "user", 54, "userov", "123", rolesUser);
+            User user2 = new User("user1@gmail.com", "user1", 54, "userov", "123", rolesUser);
             userService.save(admin);
             userService.save(user);
             userService.save(user2);
-        } catch (RuntimeException ignored){}
+        }
     }
 }
