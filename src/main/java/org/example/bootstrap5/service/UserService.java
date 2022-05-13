@@ -1,6 +1,6 @@
-package org.my.bootstrap5.service;
+package org.example.bootstrap5.service;
 
-import org.my.bootstrap5.model.User;
+import org.example.bootstrap5.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.my.bootstrap5.model;
+package org.example.bootstrap5.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,23 +1,20 @@
-package org.my.bootstrap5.service;
+package org.example.bootstrap5.service;
 
-import org.my.bootstrap5.model.Role;
-import org.my.bootstrap5.repositories.UserRepository;
-import org.my.bootstrap5.model.User;
+import org.example.bootstrap5.repositories.UserRepository;
+import org.example.bootstrap5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
 @Transactional
 public class UserServiceImp implements UserService {
-    private UserRepository userRepository;
-    private BCryptPasswordEncoder bcrypt;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bcrypt;
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, BCryptPasswordEncoder bcrypt) {
@@ -53,7 +50,13 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updateUser(User user) {
-        userRepository.save(user);
+        String oldPassword = userRepository.findUserByEmail(user.getEmail()).getPassword();
+        if(oldPassword.equals(user.getPassword())){
+            userRepository.save(user);
+        } else {
+            user.setPassword(bcrypt.encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
 
     @Override

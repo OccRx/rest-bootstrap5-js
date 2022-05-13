@@ -1,9 +1,9 @@
-package org.my.bootstrap5.util;
+package org.example.bootstrap5.util;
 
-import org.my.bootstrap5.model.Role;
-import org.my.bootstrap5.model.User;
-import org.my.bootstrap5.service.RoleService;
-import org.my.bootstrap5.service.UserService;
+import org.example.bootstrap5.model.Role;
+import org.example.bootstrap5.model.User;
+import org.example.bootstrap5.service.RoleService;
+import org.example.bootstrap5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
@@ -14,8 +14,8 @@ import java.util.List;
 @Component
 public class AdminInit {
 
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
 
     @Autowired

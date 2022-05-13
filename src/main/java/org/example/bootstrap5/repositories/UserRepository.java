@@ -1,6 +1,6 @@
-package org.my.bootstrap5.repositories;
+package org.example.bootstrap5.repositories;
 
-import org.my.bootstrap5.model.User;
+import org.example.bootstrap5.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

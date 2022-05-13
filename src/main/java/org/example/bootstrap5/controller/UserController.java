@@ -1,7 +1,7 @@
-package org.my.bootstrap5.controller;
+package org.example.bootstrap5.controller;
 
-import org.my.bootstrap5.model.User;
-import org.my.bootstrap5.service.UserService;
+import org.example.bootstrap5.service.UserService;
+import org.example.bootstrap5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService usersService) {

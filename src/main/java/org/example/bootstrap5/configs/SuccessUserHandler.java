@@ -1,4 +1,4 @@
-package org.my.bootstrap5.configs;
+package org.example.bootstrap5.configs;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
