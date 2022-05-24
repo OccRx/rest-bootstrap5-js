@@ -29,7 +29,7 @@ public class AdminController {
         model.addAttribute("userList", userService.findAll());
         model.addAttribute("roleList", roleService.findAll());
         model.addAttribute("user", user);
-        return "admin";
+        return "modal";
     }
 
     @PostMapping(value = "/saveUser")
