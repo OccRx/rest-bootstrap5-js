@@ -1,6 +1,6 @@
-package org.example.bootstrap5.service;
+package org.example.bootstrap5rest.service;
 
-import org.example.bootstrap5.model.Role;
+import org.example.bootstrap5rest.model.Role;
 
 import java.util.List;
 

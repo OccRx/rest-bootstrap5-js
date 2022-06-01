@@ -1,9 +1,9 @@
-package org.example.bootstrap5.util;
+package org.example.bootstrap5rest.util;
 
-import org.example.bootstrap5.model.Role;
-import org.example.bootstrap5.model.User;
-import org.example.bootstrap5.service.RoleService;
-import org.example.bootstrap5.service.UserService;
+import org.example.bootstrap5rest.model.Role;
+import org.example.bootstrap5rest.model.User;
+import org.example.bootstrap5rest.service.RoleService;
+import org.example.bootstrap5rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;

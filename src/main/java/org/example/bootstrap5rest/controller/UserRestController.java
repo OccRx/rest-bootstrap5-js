@@ -1,9 +1,9 @@
-package org.example.bootstrap5.controller;
+package org.example.bootstrap5rest.controller;
 
-import org.example.bootstrap5.model.Role;
-import org.example.bootstrap5.model.User;
-import org.example.bootstrap5.service.RoleService;
-import org.example.bootstrap5.service.UserService;
+import org.example.bootstrap5rest.model.Role;
+import org.example.bootstrap5rest.model.User;
+import org.example.bootstrap5rest.service.RoleService;
+import org.example.bootstrap5rest.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;

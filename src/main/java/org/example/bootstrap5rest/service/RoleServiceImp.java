@@ -1,7 +1,7 @@
-package org.example.bootstrap5.service;
+package org.example.bootstrap5rest.service;
 
-import org.example.bootstrap5.model.Role;
-import org.example.bootstrap5.repositories.RoleRepository;
+import org.example.bootstrap5rest.model.Role;
+import org.example.bootstrap5rest.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

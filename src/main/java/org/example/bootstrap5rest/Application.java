@@ -1,4 +1,4 @@
-package org.example.bootstrap5;
+package org.example.bootstrap5rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

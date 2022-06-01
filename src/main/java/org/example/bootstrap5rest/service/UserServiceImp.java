@@ -1,7 +1,7 @@
-package org.example.bootstrap5.service;
+package org.example.bootstrap5rest.service;
 
-import org.example.bootstrap5.repositories.UserRepository;
-import org.example.bootstrap5.model.User;
+import org.example.bootstrap5rest.repositories.UserRepository;
+import org.example.bootstrap5rest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
