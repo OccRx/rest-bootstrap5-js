@@ -3,7 +3,6 @@ package org.example.bootstrap5.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +42,5 @@ public class Role implements GrantedAuthority {
                 "roleName='" + roleName + '\'' +
                 '}';
     }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
 }
+

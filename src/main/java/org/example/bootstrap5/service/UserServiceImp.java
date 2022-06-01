@@ -50,7 +50,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updateUser(User user) {
-        String oldPassword = userRepository.findUserByEmail(user.getEmail()).getPassword();
+        String oldPassword = userRepository.findUserById(user.getId()).getPassword();
         if(oldPassword.equals(user.getPassword())){
             userRepository.save(user);
         } else {
@@ -62,11 +62,6 @@ public class UserServiceImp implements UserService {
     @Override
     public void deleteUserById(long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public User findUserByName(String name) {
-        return userRepository.findUserByName(name);
     }
 
 }

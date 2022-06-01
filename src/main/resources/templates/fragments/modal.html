@@ -1,0 +1,207 @@
+<div aria-hidden="true" aria-labelledby="defaultModalLabel" class="modal fade" id="defaultModal" tabindex="-1"
+     th:fragment="defaultModal">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="defaultModalLabel">Edit
+                    user</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <form class="text-center" id="formUpdate">
+                            <div class="form-group mb-2">
+                                <label for="editID"><b>ID</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="editID" name="id"
+                                       readonly
+                                       type="text"
+                                >
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="editFirstName"><b>First
+                                    name</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="editFirstName"
+                                       name="name"
+                                       placeholder="First name"
+                                       type="text">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="editLastName"><b>Last
+                                    name</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="editLastName"
+                                       name="lastName"
+                                       placeholder="Last name"
+                                       type="text">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="editAge"><b>Age</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="editAge"
+                                       name="age"
+                                       placeholder="Age"
+                                       required="required"
+                                       type="number"
+                                >
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="editEmail"><b>Email</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="editEmail"
+                                       name="email"
+                                       placeholder="Email"
+                                       required="required"
+                                       type="email">
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="editPassword"><b>Password</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="editPassword"
+                                       name="password"
+                                       required="required"
+                                       type="password"
+                                >
+                            </div>
+
+                            <div class="form-group mb-2">
+
+                                <label><b>Role</b></label>
+                                <select aria-label="size 2"
+                                        class="form-select" id="selectRole"
+                                        multiple name="roles"
+                                        required="required"
+                                        size="2"
+                                >
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary closeBtn"
+                        data-bs-dismiss="modal"
+                        id="closeBtn"
+
+                        type="button">Close
+                </button>
+                <button class="btn btn-primary" form="formUpdate" id="submitEdit"
+                        type="submit">Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--==============================-->
+<div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade" id="deleteModal" tabindex="-1"
+     th:fragment="deleteModal">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Edit
+                    user</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <form class="text-center"
+                              id="deleteForm">
+                            <div class="form-group mb-2">
+                                <label for="delID"><b>ID</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="delID" name="userId"
+                                       readonly
+                                       type="text"
+                                >
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="deleteeditFirstName"><b>First
+                                    name</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="deleteeditFirstName"
+                                       name="name"
+                                       placeholder="First name"
+                                       readonly
+                                       type="text">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="deleteeditLastName"><b>Last
+                                    name</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="deleteeditLastName"
+                                       name="lastName"
+                                       placeholder="Last name"
+                                       readonly
+                                       type="text">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="deleteeditAge"><b>Age</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="deleteeditAge"
+                                       name="age"
+                                       placeholder="Age"
+                                       readonly
+                                       required="required"
+                                       type="number"
+                                >
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="deleteeditEmail"><b>Email</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="deleteeditEmail"
+                                       name="email"
+                                       placeholder="Email"
+                                       readonly
+                                       required="required"
+                                       type="email">
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="deleteeditPassword"><b>Password</b></label>
+                                <input class="form-control form-control-sm"
+                                       id="deleteeditPassword"
+                                       name="password"
+                                       readonly
+                                       required="required"
+                                       type="password"
+                                >
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label><b>Role</b></label>
+                                <select aria-label="size 2"
+                                        class="form-select"
+                                        disabled id="deleteselectRole"
+                                        multiple name="roles"
+                                        required="required"
+                                        size="2"
+                                >
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary closeBtn"
+                        data-bs-dismiss="modal"
+                        id="closeDeleteBtn"
+
+                        type="button">Close
+                </button>
+                <button class="btn btn-primary" form="deleteForm" id="submitDelete"
+                        type="submit">Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

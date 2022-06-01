@@ -1,11 +1,12 @@
 package org.example.bootstrap5.controller;
 
+import org.example.bootstrap5.model.Role;
 import org.example.bootstrap5.model.User;
 import org.example.bootstrap5.service.RoleService;
 import org.example.bootstrap5.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +23,37 @@ public class UserRestController {
     }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
+    public List<User> getUsers(){
         return userService.findAll();
     }
 
+    @GetMapping("/roles")
+    public List<Role> getRoles() {
+        return roleService.findAll();
+    }
+
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.findUserById(id);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUserById(@PathVariable Long id){
+        userService.deleteUserById(id);
+    }
+
+    @PostMapping("/users")
+    public void addUser(@RequestBody User user){
+        userService.save(user);
+    }
+
+    @PutMapping("/users")
+    public void updateUser(@RequestBody User user){
+        userService.updateUser(user);
+    }
+
+    @GetMapping("/authUser")
+    public User getAuthUser(@AuthenticationPrincipal UserDetails userDetails){
+        return userService.findUserByEmail(userDetails.getUsername());
+    }
 }

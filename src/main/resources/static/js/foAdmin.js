@@ -1,80 +1,17 @@
-// let output = ''
-// const ul = document.getElementById('users');
-// const url = 'http://localhost:8080/admin/users';
-// fetch(url)
-//     .then((response) => {
-//         return response.json();
-//     })
-//     .then((usersData) => {
-//         usersData.forEach(user => {
-//             let roles = user.roles
-//             let rol = ''
-//             roles.forEach(function(role){
-//                 rol += role.roleName.substring(5) + " "
-//             })
-//             output += `<li>${user.email} ${rol}</li>`;
-//         })
-//         ul.innerHTML = output;
-//     });
-// document.ready(showAllUsers())
+document.addEventListener("DOMContentLoaded", function (event) {
+    event.currentTarget
+    showAllUsers().catch()
+    findAllRoles().catch()
+    showNavbar()
+});
 
-//
-// let tt = document.getElementById('btnEdit')
-//
-// console.log(tt)
+let table = document.getElementById('tableUser')
 
-const http = {
-    fetch: async function(url, options = {}) {
-        return await fetch(url, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            ...options,
-        });
-    }
-};
-
-const usersService = {
-    findAll: async () => {
-        return await http.fetch('/api/users');
-    },
-    add: async (data) => {
-        return await http.fetch('/api/users', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-    },
-    findById: async (id) => {
-        return await http.fetch('/api/users/' + id);
-    },
-    update: async (id, data) => {
-        return await http.fetch('/api/users/' + id, {
-            method: 'PUT',
-            body: JSON.stringify(data)
-        });
-    },
-    delete: async (id) => {
-        return await http.fetch('/api/users/' + id, {
-            method: 'DELETE'
-        });
-    },
-};
-
-
-// const api_rl = 'http://localhost:8080/api/users'
-//
-// let getAllUsers = fetch(api_rl).then(response => {
-//     return response.json()
-// })
-
- async function showAllUsers() {
-
-        getAllUsers
-
-
-
-
+async function showAllUsers() {
+    table.innerHTML = ''
+    const usersResponse = await usersService.findAll();
+    const usersJson = usersResponse.json();
+    usersJson
         .then(usersData => {
             let userData = ''
             usersData.map(user => {
@@ -89,76 +26,180 @@ const usersService = {
                                         <td>${user.name}</td>
                                         <td>${user.lastName}</td>
                                         <td>${user.age}</td>
-                                        <td>${user.email}"</td>
+                                        <td>${user.email}</td>
                                         <td>${rol}</td>
                                         <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-                                        data-bs-target="#editModal1" data-bs-id="${user.id}">modal</button>
-
-                                            <button class="btn btn-info text-white btnEdit" onclick="editModal()"
-                                                    type="button" data-bs-id = "${user.id}"
-                                            >Edit
-                                            </button>
+                                            <button type="button" class="btn btn-info text-white" 
+                                              data-bs-target="#defaultModal" 
+                                              data-bs-toggle = "modal" data-bs-id="${user.id}"
+                                            >Edit</button>
                                         </td>
                                         <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-                                        data-bs-target="#exampleModal" data-bs-whatever="@fat">modal2</button>
-
-                                            <button class="btn btn-danger btnDelete" onclick="delModal()" data-bs-id = "${user.id}"
-                                            >Delete
-                                            </button>
+                                        <button type="button" class="btn btn-danger"
+                                         data-bs-toggle="modal" 
+                                            data-bs-target="#deleteModal" data-bs-id="${user.id}">Delete</button>
                                         </td>
                                      </tr>
                                         `
             })
-            console.log(getAllUsers)
-            document.getElementById('tableUser').innerHTML = userData;
+            table.innerHTML = userData;
         });
 }
 
-let exampleModal = document.getElementById('editModal1')
-exampleModal.addEventListener('show.bs.modal', function (event) {
-    // Button that triggered the modal
-    let button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    let userId = button.getAttribute('data-bs-id')
-    // If necessary, you could initiate an AJAX request here
-    // and then do the updating in a callback.
-    //
-    // Update the modal's content.
-    let modalTitle = exampleModal.querySelector('.modal-title')
-    let modalBodyInput = exampleModal.querySelector('.modal-body input[name=userId]')
-    let modalBodyInput2 = exampleModal.querySelector('.modal-body input[name=userName]')
-    console.log(userId)
-    console.log(userId.id)
+const submitEdit = document.getElementById("formUpdate");
+submitEdit.addEventListener("submit", handleFormSubmit);
 
-    modalTitle.textContent = 'Это заголовок ' + userId["id"]
-    modalBodyInput.value = userId
-    modalBodyInput2.value = '5'
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    const form = document.getElementById('formUpdate')
+    const formData = new FormData(form);
+    const select = document.getElementById('selectRole')
+    const roles = []
+    if (select.multiple) {
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].selected) {
+                let rol = {
+                    id: select.options[i].value,
+                    roleName: 'ROLE_' + select.options[i].text
+                }
+                roles.push(rol)
+            }
+        }
+    }
+    const plainFormData = Object.fromEntries(formData.entries())
+    plainFormData['roles'] = roles
+    await usersService.update2(plainFormData)
+    let modalInstance = bootstrap.Modal.getInstance(modal)
+    modalInstance.hide();
+    showAllUsers().catch()
+}
+
+
+let modal = document.getElementById('defaultModal')
+modal.addEventListener('show.bs.modal', async function (event) {
+    document.querySelector('#selectRole').innerHTML = ''
+    let button = event.relatedTarget
+    let userId = button.getAttribute('data-bs-id')
+    const userResponse = await usersService.findById(userId);
+    const userJson = userResponse.json();
+    const rolesResponse = await rolesService.findAll();
+    const rolesJson = rolesResponse.json();
+    let modalBodyInput = modal.querySelectorAll('.modal-body input')
+    userJson.then(user => {
+        modalBodyInput[0].value = user.id
+        modalBodyInput[1].value = user.name
+        modalBodyInput[2].value = user.lastName
+        modalBodyInput[3].value = user.age
+        modalBodyInput[4].value = user.email
+        modalBodyInput[5].value = user.password
+        rolesJson.then(roles => {
+            roles.forEach(function (role) {
+                let selectRole = modal.querySelector('.modal-body select');
+                if (user.roles.some(o => o.id === role.id)) {
+                    selectRole.append(new Option(role["roleName"].substring(5), role.id, false, true))
+                } else {
+                    selectRole.append(new Option(role["roleName"].substring(5), role.id))
+                }
+            })
+        })
+    })
+
 })
 
-async function editModal(){
-    let editUserModal = new bootstrap.Modal(document.getElementById('editForm'));
-    // let modalTitle = editUserModal.querySelector('.modal-title')
-    // modalTitle.textContent = 'парам пам пам'
-    editUserModal.show(editUserModal)
+const submitDelete = document.getElementById("deleteForm");
+submitDelete.addEventListener("submit", handleFormDelete);
+
+async function handleFormDelete(event) {
+    event.preventDefault()
+    const fromDelete = document.getElementById('deleteForm')
+    const id = fromDelete.querySelector('#delID').value
+    await usersService.delete(id)
+    let modalInstance = bootstrap.Modal.getInstance(modalDelete)
+    modalInstance.hide();
+    showAllUsers().catch()
 }
 
-async function delModal(){
-    let editUserModal = new bootstrap.Modal(document.getElementById('editForm'));
-    editUserModal.show()
+let modalDelete = document.getElementById('deleteModal')
+modalDelete.addEventListener('show.bs.modal', async function (event) {
+    document.querySelector('#deleteselectRole').innerHTML = ''
+    let button = event.relatedTarget
+    let userId = button.getAttribute('data-bs-id')
+    const userResponse = await usersService.findById(userId);
+    const userJson = userResponse.json();
+    const rolesResponse = await rolesService.findAll();
+    const rolesJson = rolesResponse.json();
+    let modalBodyInput = modalDelete.querySelectorAll('.modal-body input')
+    userJson.then(user => {
+        modalBodyInput[0].value = user.id
+        modalBodyInput[1].value = user.name
+        modalBodyInput[2].value = user.lastName
+        modalBodyInput[3].value = user.age
+        modalBodyInput[4].value = user.email
+        modalBodyInput[5].value = user.password
+        rolesJson.then(roles => {
+            roles.forEach(function (role) {
+                let selectRole = modalDelete.querySelector('.modal-body select');
+                if (user.roles.some(o => o.id === role.id)) {
+                    selectRole.append(new Option(role["roleName"].substring(5), role.id, false, true))
+                } else {
+                    selectRole.append(new Option(role["roleName"].substring(5), role.id))
+                }
+            })
+        })
+    })
+})
+
+const newUserFrom = document.getElementById('newUserFrom')
+
+async function findAllRoles() {
+    const rolesResponse = await rolesService.findAll();
+    const rolesJson = rolesResponse.json();
+    rolesJson.then(roles => {
+        roles.forEach(function (role) {
+            const selectRole = newUserFrom.querySelector('.card-body select');
+            selectRole.append(new Option(role["roleName"].substring(5), role.id))
+        })
+    })
 }
 
-// $('#exampleModal').on('show.bs.modal', function (event) {
-//     var button = $(event.relatedTarget) // Button that triggered the modal
-//     var recipient = button.data('whatever') // Extract info from data-* attributes
-//     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-//     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-//     var modal = $(this)
-//     modal.find('.modal-title').text('New message to ' + recipient)
-//     modal.find('.modal-body input').val(recipient)
-// })
-showAllUsers()
+const submitNewUser = document.getElementById("newUserFrom");
+submitNewUser.addEventListener('submit', handleFormNewUser);
+
+async function handleFormNewUser(event) {
+    event.preventDefault();
+    const newUserFrom = document.getElementById('newUserFrom')
+    const formData1 = new FormData(newUserFrom);
+    const select = document.getElementById('selectRoleNew')
+
+    const roless = []
+    if (select.multiple) {
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].selected) {
+                let rol = {
+                    id: select.options[i].value,
+                    roleName: 'ROLE_' + select.options[i].text
+                }
+                roless.push(rol)
+            }
+        }
+
+    }
+    const plainFormData = Object.fromEntries(formData1.entries())
+    plainFormData['roles'] = roless
+    await usersService.add(plainFormData)
+
+    let aActive = document.getElementById('nav-profile')
+    let notActive = document.getElementById('nav-home')
+    let buttonActive = document.getElementById('nav-profile-tab')
+    let buttonNotActive = document.getElementById('nav-home-tab')
+    aActive.setAttribute('class', 'tab-pane fade')
+    buttonActive.setAttribute('class', 'nav-link')
+    notActive.setAttribute('class', 'tab-pane fade active show')
+    buttonNotActive.setAttribute('class', 'nav-link active')
+    newUserFrom.reset()
+
+    showAllUsers().catch()
+}
 
 
 
