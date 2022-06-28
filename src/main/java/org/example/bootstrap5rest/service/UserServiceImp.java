@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,8 +28,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findUserById(long id) {
-        return userRepository.findUserById(id);
+    public Optional<User> findUserById(long id) {
+        return userRepository.findById(id);
     }
 
     @Override
@@ -40,17 +40,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-       return userRepository.findUserByEmail(email);
-    }
-
-    @Override
-    public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 
     @Override
     public void updateUser(User user) {
-        String oldPassword = userRepository.findUserById(user.getId()).getPassword();
+        String oldPassword = userRepository.getById(user.getId()).getPassword();
         if(oldPassword.equals(user.getPassword())){
             userRepository.save(user);
         } else {

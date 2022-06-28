@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 let table = document.getElementById('tableUser')
 
+
 async function showAllUsers() {
     table.innerHTML = ''
     const usersResponse = await usersService.findAll();
@@ -17,6 +18,7 @@ async function showAllUsers() {
             usersData.map(user => {
                 let roles = user.roles
                 let rol = ''
+                console.log()
                 roles.forEach(function (role) {
                     rol += role["roleName"].substring(5) + ' '
                 })
@@ -44,6 +46,7 @@ async function showAllUsers() {
             })
             table.innerHTML = userData;
         });
+
 }
 
 const submitEdit = document.getElementById("formUpdate");
@@ -67,6 +70,7 @@ async function handleFormSubmit(event) {
         }
     }
     const plainFormData = Object.fromEntries(formData.entries())
+    console.log(plainFormData)
     plainFormData['roles'] = roles
     await usersService.update2(plainFormData)
     let modalInstance = bootstrap.Modal.getInstance(modal)
@@ -95,6 +99,7 @@ modal.addEventListener('show.bs.modal', async function (event) {
         rolesJson.then(roles => {
             roles.forEach(function (role) {
                 let selectRole = modal.querySelector('.modal-body select');
+
                 if (user.roles.some(o => o.id === role.id)) {
                     selectRole.append(new Option(role["roleName"].substring(5), role.id, false, true))
                 } else {
