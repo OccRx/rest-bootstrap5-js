@@ -18,7 +18,6 @@ async function showAllUsers() {
             usersData.map(user => {
                 let roles = user.roles
                 let rol = ''
-                console.log()
                 roles.forEach(function (role) {
                     rol += role["roleName"].substring(5) + ' '
                 })
@@ -70,7 +69,6 @@ async function handleFormSubmit(event) {
         }
     }
     const plainFormData = Object.fromEntries(formData.entries())
-    console.log(plainFormData)
     plainFormData['roles'] = roles
     await usersService.update2(plainFormData)
     let modalInstance = bootstrap.Modal.getInstance(modal)

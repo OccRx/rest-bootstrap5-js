@@ -5,8 +5,6 @@ import org.example.bootstrap5rest.model.User;
 import org.example.bootstrap5rest.service.RoleService;
 import org.example.bootstrap5rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -44,6 +42,7 @@ public class AdminInit {
             userService.save(admin);
             userService.save(user);
             userService.save(user2);
+
         }
     }
 }

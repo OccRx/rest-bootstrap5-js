@@ -6,14 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class UserRestController {
 
@@ -38,7 +35,7 @@ public class UserRestController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("User with ID " + id + " was DELETE");
     }
 
     @PostMapping("/users")
@@ -49,7 +46,6 @@ public class UserRestController {
 
     @PutMapping("/users")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        Optional<User> userNotNull = userService.findUserById(user.getId());
         userService.updateUser(user);
         return ResponseEntity.ok(user);
     }
@@ -58,5 +54,4 @@ public class UserRestController {
     public ResponseEntity<UserDetails> getAuthUser(@AuthenticationPrincipal UserDetails userDetails) {
         return new ResponseEntity<>(userService.loadUserByUsername(userDetails.getUsername()), HttpStatus.OK);
     }
-
 }
