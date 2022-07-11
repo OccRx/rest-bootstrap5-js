@@ -23,7 +23,7 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/login","/doAnyRequest").permitAll()
+                .antMatchers("/", "/login").permitAll()
                 .antMatchers("/user/**","/api/authUser","/api/roles").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**","/api/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
